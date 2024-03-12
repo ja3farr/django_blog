@@ -1,28 +1,34 @@
+{% extends 'blog/base.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>ja3far's log site</title>
-    </head>
+    <header class="page-header">
+        <div class="container">
+            <h1><a href="/">ja3far's Blog</a></h1>
+        </div>
+    </header>
     <body>
         <header>
             <h1><a href = '/'>django blog app</a></h1>
         </header>
-        
-        <article>
-            <time>published : 1948</time>
-            <h2><a href = "">my first blog site</a></h2>
-            <p>
-                nineteen eighty four by george orwell .
-                <br>
-                <img src = "https://i0.wp.com/www.printmag.com/wp-content/uploads/2017/01/2a34d8_914e1ba913474c4ab47c1701d228da08mv2.jpg?fit=300%2C190&quality=89&ssl=1" 
-                alt = "big brother is watching you:)" width = 400 >
-            </p>
-        </article>
-        <article>
-            {% for post in posts %}
-            <h2><a href="">{{ post.title }}</a></h2> 
-            <p>{{ post.text|linebreaksbr }}</p>
-            {% endfor %}
+        <article class="post"><main class="container">
+            <div class="row">
+                <div class="col">
+                 {% block content %}   
+                 {% for post in posts %}
+                        <article class="post">
+                            <time class="date">
+                                {{ post.created_date }}
+                            </time>
+                            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+                            <p>{{ post.text|linebreaksbr }}</p>
+                        </article>
+                    {% endfor %}
+                {% endblock %}
+                </div>
+            </div>
+        </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         </article>
     </body>
 </html>
