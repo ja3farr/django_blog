@@ -14,17 +14,20 @@
         <article class="post"><main class="container">
             <div class="row">
                 <div class="col">
-                 {% block content %}   
+                 {% block content %}  
                  {% for post in posts %}
+                 {% if post.published_date %}
                         <article class="post">
                             <time class="date">
                                 {{ post.created_date }}
                             </time>
                             <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
                             <p>{{ post.text|linebreaksbr }}</p>
+                            <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
                         </article>
+                {% endif %}
                     {% endfor %}
-                {% endblock %}
+                {% endblock content %}
                 </div>
             </div>
         </main>
